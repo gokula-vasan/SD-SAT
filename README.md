@@ -171,38 +171,34 @@ mongosh --eval "rs.initiate()"
 
 ## 🚀 Running the Application
 
-### 1. Install Dependencies
-```powershell
-npm install
-```
+### Option A: Two Separate Terminals (Recommended)
 
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env`:
-```powershell
-cp .env.example .env
-```
-Default `.env` configuration:
-```env
-PORT=3000
-NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/digital_banking?replicaSet=rs0
-DB_NAME=digital_banking
-JWT_SECRET=super_secret_jwt_key_for_digital_banking_system_2026_secure
-JWT_EXPIRES_IN=24h
-AUTO_START_EMBEDDED_MONGO_IF_UNAVAILABLE=true
-```
+You can run the backend and frontend in two separate terminals with MongoDB connected:
 
-### 3. Seed Fictional Demo Data
-Populate the database with pre-configured customer accounts, balances, and sample transfers:
+#### 🖥️ Terminal 1 — Backend API (Connected to MongoDB):
 ```powershell
-npm run seed
+npm run backend
 ```
+- **Port:** `http://localhost:5000`
+- **Endpoints:** REST APIs under `http://localhost:5000/api/*`
+- **Database:** Connects to MongoDB Community Server (or embedded replica set engine)
+- **CORS:** Enabled to accept requests from the frontend origin.
 
-### 4. Start the Application
+#### 🌐 Terminal 2 — Frontend UI:
+```powershell
+npm run frontend
+```
+- **Port:** `http://localhost:3000`
+- **UI Pages:** Accessible at `http://localhost:3000/index.html`
+- Automatically communicates with the backend on port 5000!
+
+---
+
+### Option B: Single Combined Terminal
 ```powershell
 npm start
 ```
-The application will launch on `http://localhost:3000`.
+Starts the full-stack server serving both the API and frontend UI from `http://localhost:5000`.
 
 ---
 

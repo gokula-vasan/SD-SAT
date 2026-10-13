@@ -18,9 +18,9 @@ const notificationRoutes = require('./src/routes/notificationRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
-// Security Middleware: Helmet with relaxed Content-Security-Policy for local frontend assets & CDNs
+// Security Middleware: Helmet with relaxed Content-Security-Policy for split ports & CDNs
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -30,15 +30,15 @@ app.use(
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
         imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'"],
+        connectSrc: ["'self'", "http://localhost:5000", "http://localhost:3000", "http://127.0.0.1:5000", "http://127.0.0.1:3000"],
       },
     },
     crossOriginEmbedderPolicy: false,
   })
 );
 
-// CORS support
-app.use(cors());
+// CORS support for separate frontend origin
+app.use(cors({ origin: true, credentials: true }));
 
 // Request body size limits
 app.use(express.json({ limit: '1mb' }));

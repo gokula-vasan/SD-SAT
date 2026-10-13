@@ -2,7 +2,13 @@
  * API Service Client for Digital Banking System
  */
 
-const API_BASE = '/api';
+// Dynamically resolve backend API endpoint
+// When frontend is running on port 3000 and backend on port 5000, routes to http://localhost:5000/api
+const API_BASE = window.API_BASE || (
+  window.location.port !== '5000' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:5000/api'
+    : '/api'
+);
 
 class ApiClient {
   getToken() {

@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "backend": "node server.js",
+    "frontend": "node frontend-server.js",
     "dev": "node server.js",
     "seed": "node src/utils/seed.js",
     "test": "node tests/run-all-tests.js"
