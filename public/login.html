@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sign In to Digital Banking and Money Transfer System">
+  <title>Sign In - NovaBank</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="brand-icon">🏛️</div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to access your digital banking account</p>
+      </div>
+
+      <!-- Quick 1-Click Demo Account Autofill -->
+      <div class="demo-creds">
+        <div class="demo-creds-title">
+          <span>⚡ 1-Click Demo Login</span>
+          <span style="font-size: 0.72rem; color: var(--text-dim);">Pre-seeded</span>
+        </div>
+        <div class="demo-btn-group">
+          <button type="button" class="btn btn-secondary btn-sm" id="demo-user-1">Alex (Customer)</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="demo-user-2">Priya (Customer)</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="demo-admin">Admin Portal</button>
+        </div>
+      </div>
+
+      <div id="login-alert" class="alert alert-danger" style="display: none;"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="btn-login-submit" style="width: 100%; padding: 12px; margin-top: 8px;">
+          Sign In
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 24px; font-size: 0.88rem; color: var(--text-muted);">
+        Don't have an account yet? <a href="/register.html" style="font-weight: 600;">Open an Account</a>
+      </div>
+      <div style="text-align: center; margin-top: 10px; font-size: 0.82rem;">
+        <a href="/index.html" style="color: var(--text-dim);">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

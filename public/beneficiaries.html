@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Beneficiary Management - NovaBank Digital Banking System">
+  <title>Beneficiaries - NovaBank</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <h2>NovaBank</h2>
+          <span>Digital Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/transfer.html" class="nav-link">
+          <span class="nav-icon">💸</span>
+          <span>Transfer Money</span>
+        </a>
+        <a href="/transactions.html" class="nav-link">
+          <span class="nav-icon">📜</span>
+          <span>Transactions</span>
+        </a>
+        <a href="/beneficiaries.html" class="nav-link active">
+          <span class="nav-icon">👥</span>
+          <span>Beneficiaries</span>
+        </a>
+        <a href="/notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span>
+          <span>Notifications</span>
+          <span class="nav-badge notif-badge-count" style="display: none;">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div class="user-avatar user-avatar-initials">--</div>
+          <div class="user-info">
+            <div class="user-name user-display-name">Loading...</div>
+            <div class="user-role-badge user-display-role">customer</div>
+          </div>
+          <button class="btn-logout btn-logout-action" title="Logout">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="mobile-nav-toggle">☰</button>
+          <div class="page-title">
+            <h1>Beneficiary Management</h1>
+            <p>Save and manage trusted recipient accounts for instant transfers</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a href="/transfer.html" class="btn btn-primary btn-sm">💸 Transfer Money</a>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 24px; align-items: start;" class="responsive-grid">
+          <!-- Add Beneficiary Form Card -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">➕ Add Beneficiary</h2>
+            </div>
+
+            <div id="bene-alert" class="alert alert-danger" style="display: none;"></div>
+            <div id="bene-success" class="alert alert-success" style="display: none;"></div>
+
+            <form id="add-beneficiary-form">
+              <div class="form-group">
+                <label class="form-label" for="bene-acc">Recipient Account Number *</label>
+                <input type="text" id="bene-acc" class="form-control" placeholder="ACC-XXXXXXXXXX" required style="font-family: var(--font-mono); text-transform: uppercase;">
+                <div class="form-hint">Try <code>ACC-1000200032</code> (Priya) or <code>ACC-1000200033</code> (Rahul).</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="bene-name">Display Alias / Name *</label>
+                <input type="text" id="bene-name" class="form-control" placeholder="e.g. Priya Personal" required maxlength="60">
+                <div class="form-hint">A friendly name you can easily identify.</div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="btn-add-bene" style="width: 100%; margin-top: 8px;">
+                Save Beneficiary
+              </button>
+            </form>
+          </div>
+
+          <!-- Saved Beneficiaries List Card -->
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">👥 Saved Beneficiaries</h2>
+              <span id="bene-count-badge" class="badge badge-info">0 saved</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Display Name</th>
+                    <th>Account Number</th>
+                    <th>Account Owner</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="bene-tbody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; color: var(--text-dim); padding: 30px;">Loading beneficiaries...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 960px) {
+      .responsive-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/beneficiaries.js"></script>
+</body>
+</html>

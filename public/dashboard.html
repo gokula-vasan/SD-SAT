@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Customer Account Dashboard - NovaBank Digital Banking System">
+  <title>Dashboard - NovaBank</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <h2>NovaBank</h2>
+          <span>Digital Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html" class="nav-link active">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/transfer.html" class="nav-link">
+          <span class="nav-icon">💸</span>
+          <span>Transfer Money</span>
+        </a>
+        <a href="/transactions.html" class="nav-link">
+          <span class="nav-icon">📜</span>
+          <span>Transactions</span>
+        </a>
+        <a href="/beneficiaries.html" class="nav-link">
+          <span class="nav-icon">👥</span>
+          <span>Beneficiaries</span>
+        </a>
+        <a href="/notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span>
+          <span>Notifications</span>
+          <span class="nav-badge notif-badge-count" style="display: none;">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div class="user-avatar user-avatar-initials">--</div>
+          <div class="user-info">
+            <div class="user-name user-display-name">Loading...</div>
+            <div class="user-role-badge user-display-role">customer</div>
+          </div>
+          <button class="btn-logout btn-logout-action" title="Logout">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="mobile-nav-toggle">☰</button>
+          <div class="page-title">
+            <h1>Account Overview</h1>
+            <p>Welcome back, <span class="user-display-name">Customer</span></p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a href="/notifications.html" class="btn btn-secondary btn-sm" style="position: relative;">
+            🔔 <span class="notif-badge-count" style="display: none; background: var(--danger); color: #fff; font-size: 0.7rem; padding: 2px 6px; border-radius: 99px; margin-left: 4px;">0</span>
+          </a>
+          <button class="btn btn-secondary btn-sm btn-logout-action">Sign Out</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- Balance Hero Card -->
+        <div class="balance-hero" style="margin-bottom: 28px;">
+          <div class="balance-label">Available Simulated Balance</div>
+          <div class="balance-amount" id="dashboard-balance">₹0.00</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div class="account-pill">
+              <span class="status-indicator"></span>
+              <span>Account: <strong id="dashboard-account-number" style="color: #fff;">ACC-XXXX</strong></span>
+              <span style="color: var(--accent-primary); font-size: 0.75rem;">(Active)</span>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <a href="/transfer.html" class="btn btn-primary btn-sm">💸 Send Money</a>
+              <a href="/beneficiaries.html" class="btn btn-secondary btn-sm">➕ Add Beneficiary</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Summary Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon credit">⬇️</div>
+            <div class="stat-data">
+              <div class="stat-title">Total Credits</div>
+              <div class="stat-value" id="dashboard-total-credits" style="color: var(--success);">₹0.00</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon debit">⬆️</div>
+            <div class="stat-data">
+              <div class="stat-title">Total Debits</div>
+              <div class="stat-value" id="dashboard-total-debits" style="color: var(--danger);">₹0.00</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon neutral">🛡️</div>
+            <div class="stat-data">
+              <div class="stat-title">Account Status</div>
+              <div class="stat-value" style="font-size: 1.15rem; color: var(--accent-primary);">Active & Verified</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Transactions Table Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">📜 Recent Transactions</h2>
+            <a href="/transactions.html" class="btn btn-secondary btn-sm">View All History →</a>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Reference</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-recent-tx-tbody">
+                <tr>
+                  <td colspan="6" style="text-align: center; color: var(--text-dim); padding: 30px;">Loading transactions...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

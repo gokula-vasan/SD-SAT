@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Transfer Virtual Money - NovaBank Digital Banking System">
+  <title>Transfer Money - NovaBank</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <h2>NovaBank</h2>
+          <span>Digital Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/transfer.html" class="nav-link active">
+          <span class="nav-icon">💸</span>
+          <span>Transfer Money</span>
+        </a>
+        <a href="/transactions.html" class="nav-link">
+          <span class="nav-icon">📜</span>
+          <span>Transactions</span>
+        </a>
+        <a href="/beneficiaries.html" class="nav-link">
+          <span class="nav-icon">👥</span>
+          <span>Beneficiaries</span>
+        </a>
+        <a href="/notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span>
+          <span>Notifications</span>
+          <span class="nav-badge notif-badge-count" style="display: none;">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div class="user-avatar user-avatar-initials">--</div>
+          <div class="user-info">
+            <div class="user-name user-display-name">Loading...</div>
+            <div class="user-role-badge user-display-role">customer</div>
+          </div>
+          <button class="btn-logout btn-logout-action" title="Logout">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="mobile-nav-toggle">☰</button>
+          <div class="page-title">
+            <h1>Virtual Money Transfer</h1>
+            <p>Send simulated funds securely with ACID multi-document transaction protection</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a href="/dashboard.html" class="btn btn-secondary btn-sm">← Back to Dashboard</a>
+        </div>
+      </header>
+
+      <main class="content-area" style="max-width: 800px;">
+        <!-- Sender Balance Context Card -->
+        <div class="card" style="margin-bottom: 24px; background: rgba(15, 23, 42, 0.6);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Sender Account</div>
+              <div style="font-size: 1.1rem; font-weight: 700; font-family: var(--font-mono);" id="sender-acc-num">ACC-XXXX</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Available Balance</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: #34d399;" id="sender-balance">₹0.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transfer Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">💸 Transfer Details</h2>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-idemp" title="Generate New Idempotency Key">
+              🔄 New Idempotency Key
+            </button>
+          </div>
+
+          <div id="transfer-alert" class="alert alert-danger" style="display: none;"></div>
+          <div id="transfer-success" class="alert alert-success" style="display: none;"></div>
+
+          <form id="transfer-form">
+            <!-- Saved Beneficiary Selector -->
+            <div class="form-group">
+              <label class="form-label" for="beneficiary-select">Quick Select from Saved Beneficiaries</label>
+              <select id="beneficiary-select" class="form-control">
+                <option value="">-- Choose a saved beneficiary (optional) --</option>
+              </select>
+            </div>
+
+            <!-- Recipient Account -->
+            <div class="form-group">
+              <label class="form-label" for="recipient-account">Recipient Account Number *</label>
+              <input type="text" id="recipient-account" class="form-control" placeholder="e.g. ACC-1000200032" required style="font-family: var(--font-mono); text-transform: uppercase;">
+              <div class="form-hint">Tip: Try Priya's account <code>ACC-1000200032</code> or Rahul's account <code>ACC-1000200033</code></div>
+            </div>
+
+            <!-- Amount -->
+            <div class="form-group">
+              <label class="form-label" for="transfer-amount">Amount (INR ₹) *</label>
+              <input type="number" id="transfer-amount" class="form-control" placeholder="0.00" step="0.01" min="0.01" max="1000000" required>
+              <div class="form-hint">Must be a positive monetary value with at most two decimal places.</div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="form-label" for="transfer-desc">Description / Purpose (Optional)</label>
+              <input type="text" id="transfer-desc" class="form-control" placeholder="e.g. Monthly rent, Project fee, Shared dinner" maxlength="255">
+            </div>
+
+            <!-- Idempotency Key Info -->
+            <div class="form-group">
+              <label class="form-label" for="idempotency-key">
+                Idempotency Key (Double-Debit Protection)
+              </label>
+              <input type="text" id="idempotency-key" class="form-control" readonly style="font-family: var(--font-mono); font-size: 0.8rem; background: rgba(0,0,0,0.3); color: var(--text-muted);">
+              <div class="form-hint">Automatically generated unique token preventing duplicated debits across retries.</div>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="btn-review-transfer" style="width: 100%; padding: 14px; font-size: 1rem;">
+              Proceed to Review & Confirm →
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🔒 Confirm Virtual Transfer</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.9rem;">
+          Please review the virtual transfer details carefully. This transaction will be executed with ACID session guarantees.
+        </p>
+
+        <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Recipient Account:</span>
+            <strong style="font-family: var(--font-mono); color: #fff;" id="modal-recipient-acc">ACC-XXXX</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Transfer Amount:</span>
+            <strong style="font-size: 1.25rem; color: #38bdf8;" id="modal-amount">₹0.00</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Description:</span>
+            <span id="modal-desc" style="color: var(--text-main);">None</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Idempotency Scope:</span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);" id="modal-idemp">Active</span>
+          </div>
+        </div>
+
+        <div class="alert alert-info" style="margin-bottom: 0; font-size: 0.82rem;">
+          ℹ️ Your sender balance will be conditionally debited and recipient credited atomically.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+        <button type="button" class="btn btn-primary" id="modal-confirm-btn">Confirm & Execute Transfer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/transfer.js"></script>
+</body>
+</html>

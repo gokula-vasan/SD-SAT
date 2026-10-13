@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Digital Banking and Money Transfer System - Enterprise-grade simulated banking with secure authentication and multi-document ACID transfers.">
+  <title>Digital Banking & Money Transfer System</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .hero-section {
+      text-align: center;
+      padding: 100px 24px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-color-glow);
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero-title span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 36px;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 40px auto 80px;
+      padding: 0 24px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      backdrop-filter: var(--backdrop-blur);
+    }
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .feature-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .footer {
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      padding: 30px 24px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header style="border-bottom: 1px solid var(--border-color); background: var(--bg-glass); backdrop-filter: var(--backdrop-blur); position: sticky; top: 0; z-index: 100;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-icon">🏛️</div>
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700;">NovaBank</h2>
+          <span style="font-size: 0.72rem; color: var(--accent-primary); font-weight: 600; text-transform: uppercase;">Digital Banking</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <a href="/login.html" class="btn btn-secondary btn-sm" id="nav-login-btn">Sign In</a>
+        <a href="/register.html" class="btn btn-primary btn-sm" id="nav-register-btn">Open Account</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="hero-badge">⚡ Academic Software Engineering Project</div>
+      <h1 class="hero-title">
+        The Next Generation of <span>Digital Banking</span> & Money Transfer
+      </h1>
+      <p class="hero-subtitle">
+        A full-stack, enterprise-grade banking platform simulating real-time money transfers with MongoDB ACID multi-document transactions, idempotency protection, and immutable double-entry ledger bookkeeping.
+      </p>
+      <div class="hero-actions">
+        <a href="/login.html" class="btn btn-primary" style="padding: 14px 28px; font-size: 1.05rem;" id="hero-get-started-btn">
+          🚀 Launch Banking Portal
+        </a>
+        <a href="/register.html" class="btn btn-secondary" style="padding: 14px 28px; font-size: 1.05rem;" id="hero-create-acc-btn">
+          ✍️ Create Test Account
+        </a>
+      </div>
+    </section>
+
+    <!-- Key Technical Architecture Pillars -->
+    <section class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure Authentication</h3>
+        <p>JWT-based stateless sessions, bcrypt password hashing with 10 salt rounds, input sanitization, and strict server-side role-based authorization.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>ACID Multi-Document Transfers</h3>
+        <p>Powered by MongoDB replica set sessions. Atomically debits sender and credits recipient with conditional balance verification to prevent race conditions.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Idempotency Protection</h3>
+        <p>Unique idempotency keys scoped to the user and operation prevent duplicate debits from network retries or double form submissions.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">📒</div>
+        <h3>Immutable Double-Entry Ledger</h3>
+        <p>Every successful transaction creates matching debit and credit ledger entries stored in paise (integer minor units) for audit trail integrity.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Beneficiary Management</h3>
+        <p>Add and manage trusted recipient accounts with display aliases and quick 1-click transfer initiation.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">🛠️</div>
+        <h3>Admin Console & Audit Trail</h3>
+        <p>Dedicated role-protected administrative dashboard for inspecting users, toggling account suspension, and reviewing comprehensive system audit logs.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Digital Banking & Money Transfer System &bull; Fictional Simulated Environment for Educational & Demonstration Purposes &bull; 2026</p>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script>
+    // Redirect already logged-in users straight to their respective portal
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = api.getCurrentStoredUser();
+      const token = api.getToken();
+      if (token && user) {
+        const btn = document.getElementById('hero-get-started-btn');
+        if (btn) {
+          btn.textContent = 'Go to My Dashboard →';
+          btn.href = user.role === 'admin' ? '/admin.html' : '/dashboard.html';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

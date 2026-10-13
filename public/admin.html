@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Administrator Management Console - NovaBank Digital Banking System">
+  <title>Admin Console - NovaBank</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .admin-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      overflow-x: auto;
+    }
+    .admin-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+    .admin-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .admin-tab-btn.active {
+      color: var(--text-main);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border-color-glow);
+    }
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon" style="background: linear-gradient(135deg, #ef4444, #f59e0b);">🛡️</div>
+        <div class="brand-text">
+          <h2>Admin Console</h2>
+          <span style="color: #f59e0b;">System Authority</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/admin.html" class="nav-link active">
+          <span class="nav-icon">🛡️</span>
+          <span>Control Panel</span>
+        </a>
+        <a href="/dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span>
+          <span>Customer View</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div class="user-avatar user-avatar-initials" style="background: linear-gradient(135deg, #dc2626, #b45309);">AD</div>
+          <div class="user-info">
+            <div class="user-name user-display-name">Admin</div>
+            <div class="user-role-badge" style="color: #f59e0b;">ADMINISTRATOR</div>
+          </div>
+          <button class="btn-logout btn-logout-action" title="Logout">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="mobile-nav-toggle">☰</button>
+          <div class="page-title">
+            <h1>System Administration</h1>
+            <p>User account management, global transfer tracking, and compliance audit trail</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-secondary btn-sm btn-logout-action">Sign Out</button>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- Navigation Tabs -->
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" data-tab="tab-users">
+            <span>👥</span> Users & Account Controls
+          </button>
+          <button class="admin-tab-btn" data-tab="tab-transfers">
+            <span>💸</span> System-Wide Transfers
+          </button>
+          <button class="admin-tab-btn" data-tab="tab-audit">
+            <span>📋</span> Security Audit Logs
+          </button>
+        </div>
+
+        <!-- Tab 1: Users & Moderation -->
+        <div class="tab-pane active" id="tab-users">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">👥 Registered Users & Accounts</h2>
+              <button class="btn btn-secondary btn-sm" id="btn-refresh-users">🔄 Refresh</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Customer Name</th>
+                    <th>Email Address</th>
+                    <th>Account Number</th>
+                    <th>Balance</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Moderation Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-tbody">
+                  <tr>
+                    <td colspan="7" style="text-align: center; color: var(--text-dim); padding: 30px;">Loading users...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: System Transfers -->
+        <div class="tab-pane" id="tab-transfers">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">💸 Global Transfer Monitor</h2>
+              <button class="btn btn-secondary btn-sm" id="btn-refresh-transfers">🔄 Refresh</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Initiated At</th>
+                    <th>Reference</th>
+                    <th>Sender Account</th>
+                    <th>Recipient Account</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-transfers-tbody">
+                  <tr>
+                    <td colspan="7" style="text-align: center; color: var(--text-dim); padding: 30px;">Loading system transfers...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Security Audit Logs -->
+        <div class="tab-pane" id="tab-audit">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">📋 Immutable Security Audit Logs</h2>
+              <button class="btn btn-secondary btn-sm" id="btn-refresh-audit">🔄 Refresh</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Actor</th>
+                    <th>Action</th>
+                    <th>Entity Type</th>
+                    <th>Details & Metadata</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-audit-tbody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; color: var(--text-dim); padding: 30px;">Loading audit trail...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

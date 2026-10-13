@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Transaction History - NovaBank Digital Banking System">
+  <title>Transactions - NovaBank</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <h2>NovaBank</h2>
+          <span>Digital Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/dashboard.html" class="nav-link">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="/transfer.html" class="nav-link">
+          <span class="nav-icon">💸</span>
+          <span>Transfer Money</span>
+        </a>
+        <a href="/transactions.html" class="nav-link active">
+          <span class="nav-icon">📜</span>
+          <span>Transactions</span>
+        </a>
+        <a href="/beneficiaries.html" class="nav-link">
+          <span class="nav-icon">👥</span>
+          <span>Beneficiaries</span>
+        </a>
+        <a href="/notifications.html" class="nav-link">
+          <span class="nav-icon">🔔</span>
+          <span>Notifications</span>
+          <span class="nav-badge notif-badge-count" style="display: none;">0</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div class="user-avatar user-avatar-initials">--</div>
+          <div class="user-info">
+            <div class="user-name user-display-name">Loading...</div>
+            <div class="user-role-badge user-display-role">customer</div>
+          </div>
+          <button class="btn-logout btn-logout-action" title="Logout">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="mobile-nav-toggle">☰</button>
+          <div class="page-title">
+            <h1>Transaction History</h1>
+            <p>Comprehensive audit record of all debits, credits, and virtual transfers</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a href="/transfer.html" class="btn btn-primary btn-sm">💸 New Transfer</a>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <!-- Filter Controls Card -->
+        <div class="card" style="margin-bottom: 24px;">
+          <form id="filter-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; align-items: flex-end;">
+            <div>
+              <label class="form-label" for="filter-type">Type</label>
+              <select id="filter-type" class="form-control">
+                <option value="all">All Types (Credit & Debit)</option>
+                <option value="debit">Outgoing (Debit)</option>
+                <option value="credit">Incoming (Credit)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label" for="filter-status">Status</label>
+              <select id="filter-status" class="form-control">
+                <option value="all">All Statuses</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label" for="filter-start-date">From Date</label>
+              <input type="date" id="filter-start-date" class="form-control">
+            </div>
+
+            <div>
+              <label class="form-label" for="filter-end-date">To Date</label>
+              <input type="date" id="filter-end-date" class="form-control">
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button type="submit" class="btn btn-primary" style="flex: 1;">Apply Filters</button>
+              <button type="button" class="btn btn-secondary" id="btn-reset-filters">Reset</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Transactions Table Card -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">📜 Statement of Account</h2>
+            <div id="tx-count-indicator" style="font-size: 0.85rem; color: var(--text-muted);">Showing records</div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Reference</th>
+                  <th>Sender</th>
+                  <th>Recipient</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tx-tbody">
+                <tr>
+                  <td colspan="8" style="text-align: center; color: var(--text-dim); padding: 40px;">Loading statement...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; flex-wrap: wrap; gap: 12px;">
+            <div style="font-size: 0.85rem; color: var(--text-muted);" id="pagination-info">Page 1 of 1</div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" id="btn-prev-page" disabled>← Previous</button>
+              <button class="btn btn-secondary btn-sm" id="btn-next-page" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/transactions.js"></script>
+</body>
+</html>

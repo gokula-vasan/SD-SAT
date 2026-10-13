@@ -1,0 +1,279 @@
+{
+  "info": {
+    "name": "Digital Banking & Money Transfer System API",
+    "description": "Comprehensive Postman collection for all REST endpoints in NovaBank Digital Banking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"john@bank.com\",\n  \"password\": \"SecurePassword123!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Login (Customer)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"alex@bank.com\",\n  \"password\": \"Password123!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Login (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@bank.com\",\n  \"password\": \"AdminPassword123!\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Current Profile",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "me"]
+        }
+      }
+    },
+    {
+      "name": "Accounts - My Balance",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/accounts/me/balance",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "accounts", "me", "balance"]
+        }
+      }
+    },
+    {
+      "name": "Accounts - Dashboard Metrics",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/accounts/me/dashboard",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "accounts", "me", "dashboard"]
+        }
+      }
+    },
+    {
+      "name": "Transfers - Create Transfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Idempotency-Key", "value": "demo-idemp-001" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"recipientAccountNumber\": \"ACC-1000200032\",\n  \"amount\": \"1500.00\",\n  \"description\": \"Payment for consulting work\",\n  \"idempotencyKey\": \"demo-idemp-001\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/transfers",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "transfers"]
+        }
+      }
+    },
+    {
+      "name": "Transfers - List User Transfers",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/transfers",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "transfers"]
+        }
+      }
+    },
+    {
+      "name": "Transactions - Paginated History",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/transactions?page=1&limit=10&type=all&status=all",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "transactions"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" },
+            { "key": "type", "value": "all" },
+            { "key": "status", "value": "all" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Beneficiaries - List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/beneficiaries",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "beneficiaries"]
+        }
+      }
+    },
+    {
+      "name": "Beneficiaries - Add",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"ACC-1000200033\",\n  \"displayName\": \"Rahul Verma (Project Partner)\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/beneficiaries",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "beneficiaries"]
+        }
+      }
+    },
+    {
+      "name": "Notifications - List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/notifications",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notifications"]
+        }
+      }
+    },
+    {
+      "name": "Notifications - Mark All As Read",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/notifications/read-all",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "notifications", "read-all"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/admin/users",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "admin", "users"]
+        }
+      }
+    },
+    {
+      "name": "Admin - Update User Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"suspended\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/admin/users/{{targetUserId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "admin", "users", "{{targetUserId}}", "status"]
+        }
+      }
+    },
+    {
+      "name": "Admin - System Transfers",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/admin/transfers?page=1&limit=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "admin", "transfers"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "20" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Admin - Audit Logs",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/admin/audit-logs?page=1&limit=50",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "admin", "audit-logs"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "50" }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "targetUserId", "value": "" }
+  ]
+}
