@@ -23,7 +23,7 @@ class AdminService {
         { $unwind: { path: '$account', preserveNullAndEmptyArrays: true } },
         {
           $project: {
-            id: '$_id',
+            _id: 1,
             fullName: 1,
             email: 1,
             role: 1,
@@ -39,7 +39,7 @@ class AdminService {
       .toArray();
 
     return usersWithAccounts.map((u) => ({
-      id: u._id.toString(),
+      id: (u._id || u.id).toString(),
       fullName: u.fullName,
       email: u.email,
       role: u.role,

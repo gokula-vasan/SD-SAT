@@ -271,9 +271,9 @@
     }
   ],
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:3000" },
-    { "key": "token", "value": "" },
-    { "key": "adminToken", "value": "" },
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "token", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhY2UwNWU4ZDU4OWZjNmRhNTAzZWM5NiIsImVtYWlsIjoiYWxleEBiYW5rLmNvbSIsInJvbGUiOiJjdXN0b21lciIsImlhdCI6MTc5MTg4Njg0MH0.J9oqQYV28Zmn23FxxS-q0gWxg03BBnOeiF_Udbajd6A" },
+    { "key": "adminToken", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhY2UwNWU4ZDU4OWZjNmRhNTAzZWM5NSIsImVtYWlsIjoiYWRtaW5AYmFuay5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3OTE4ODY4NDB9.5nZPQsKkkwbKL6nZ7BeSmF8LHKG53l9l99ZD7reFaaI" },
     { "key": "targetUserId", "value": "" }
   ]
 }
